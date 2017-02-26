@@ -5,7 +5,7 @@ GlobalShaderConstants::GlobalShaderConstants(ID3D12Device& Device, ID3D12Graphic
 :m_CommandList(CommandList)
 {
     std::array<CD3DX12_DESCRIPTOR_RANGE, 1> Ranges;
-    Ranges[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
+    Ranges[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1024, 0);
 
     std::array<CD3DX12_ROOT_PARAMETER, 2> Parameters;
     Parameters[0].InitAsConstants(sizeof(m_CBufPerFrame) / sizeof(int32_t), 0, 0, D3D12_SHADER_VISIBILITY::D3D12_SHADER_VISIBILITY_ALL); //TODO: only for pixel/vertex shader -> just OR-ing doesn't work
@@ -22,7 +22,7 @@ GlobalShaderConstants::GlobalShaderConstants(ID3D12Device& Device, ID3D12Graphic
     Samplers[0].BorderColor = D3D12_STATIC_BORDER_COLOR_TRANSPARENT_BLACK;
     Samplers[0].MinLOD = 0.0f;
     Samplers[0].MaxLOD = D3D12_FLOAT32_MAX;
-    Samplers[0].ShaderRegister = 1;
+    Samplers[0].ShaderRegister = 0;
     Samplers[0].RegisterSpace = 0;
     Samplers[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
 

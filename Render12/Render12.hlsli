@@ -7,4 +7,4 @@ cbuffer CBufGlobal : register(b0)
 };
 
 sampler SamLinear : register(s0);
-sampler SamPoint : register(s1);
+//sampler SamPoint : register(s1);

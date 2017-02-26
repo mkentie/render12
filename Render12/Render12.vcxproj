@@ -118,13 +118,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="ComplexSurface.hlsl" />
+    <FxCompile Include="ComplexSurface.hlsl">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Deus Ex Debug|Win32'">5.1</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Deus Ex Release|Win32'">5.1</ShaderModel>
+    </FxCompile>
     <FxCompile Include="Tile.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Deus Ex Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Deus Ex Debug|Win32'">Vertex</ShaderType>
       <FileType>Document</FileType>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Deus Ex Debug|Win32'">VSMain</EntryPointName>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Deus Ex Debug|Win32'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Deus Ex Debug|Win32'">5.1</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Deus Ex Release|Win32'">5.1</ShaderModel>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,7 +139,8 @@
   <ItemGroup>
     <FxCompile Include="Gouraud.hlsl">
       <FileType>Document</FileType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Deus Ex Debug|Win32'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Deus Ex Debug|Win32'">5.1</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Deus Ex Release|Win32'">5.1</ShaderModel>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

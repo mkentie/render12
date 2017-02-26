@@ -182,14 +182,19 @@ TextureConverter::TextureData TextureConverter::Convert(const FTextureInfo& Text
     SRVDesc.Texture2D.PlaneSlice = 0;
     SRVDesc.Texture2D.ResourceMinLODClamp = 0.0f;
 
-    auto Handle = m_SRVDescriptorHeap.GetCPUDescriptorHandleForHeapStart();
-    Handle.ptr += m_Device.GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE::D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV) * TextureCache::GlobalNumTextures;
+    CD3DX12_CPU_DESCRIPTOR_HANDLE Handle(m_SRVDescriptorHeap.GetCPUDescriptorHandleForHeapStart());
+    Handle.Offset(TextureCache::GlobalNumTextures, m_Device.GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE::D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV));
+
+
+    OutputTexture.iHeapIndex = TextureCache::GlobalNumTextures;
+
+    TextureCache::GlobalNumTextures++;
     m_Device.CreateShaderResourceView(OutputTexture.pTexture.Get(), &SRVDesc, Handle);
 
 
     OutputTexture.fMultU = 1.0f / (Texture.UClamp * Texture.UScale);
     OutputTexture.fMultV = 1.0f / (Texture.VClamp * Texture.VScale);
-    
+
     return OutputTexture;
 }
 

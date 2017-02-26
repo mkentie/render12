@@ -1,13 +1,13 @@
 #include "Render12.hlsli"
 
-Texture2D TexDiffuse : register(t0);
+Texture2D TexDiffuse[1024] : register(t0);
 
 struct STile
 {
     float4 XYPos : Position0; //Left, right, top, bottom in pixel coordinates
     float4 TexCoord : TexCoord0; //Left, right, top, bottom
     float3 Color : TexCoord1;
-    uint PolyFlags : BlendIndices0;
+    uint2 PolyFlags : BlendIndices0; //PolyFlags, tex index
 };
 
 struct VSOut
@@ -15,7 +15,7 @@ struct VSOut
     float4 Pos : SV_Position;
     float2 TexCoord : TexCoord0;
     float3 Color : TexCoord1;
-    uint PolyFlags : BlendIndices0;
+    uint2 PolyFlags : BlendIndices0;
 };
 
 VSOut VSMain(const STile Tile, const uint VertexID : SV_VertexID)
@@ -32,13 +32,13 @@ VSOut VSMain(const STile Tile, const uint VertexID : SV_VertexID)
 
 float3 PSMain(const VSOut Input) : SV_Target
 {
-    return float3(1,1,1);
+    
     //if (Input.PolyFlags & PF_Masked)
     //{
     //    clip(TexDiffuse.Sample(SamPoint, Input.TexCoord).a - 0.5f);
     //}
 
-    const float3 Diffuse = TexDiffuse.Sample(SamLinear, Input.TexCoord).rgb;
+    const float3 Diffuse = TexDiffuse[Input.PolyFlags.y].Sample(SamLinear, Input.TexCoord).rgb;
 
     //const float3 Color = Diffuse * Input.Color.rgb;
 

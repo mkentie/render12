@@ -5,7 +5,7 @@ class TextureConverter
 public:
     struct TextureData
     {
-        TextureData(){}
+        TextureData() = default;
 
         TextureData(const TextureData&) = default;
         TextureData(TextureData&& Other) //VS2015 doesn't support default move constructors
@@ -13,6 +13,7 @@ public:
             ,fMultV(Other.fMultV)
             ,pTexture(std::move(Other.pTexture))
             ,pShaderResourceView(std::move(Other.pShaderResourceView))
+            ,iHeapIndex(Other.iHeapIndex)
         {
 
         }
@@ -27,11 +28,12 @@ public:
             return *this;
         }*/
 
-        float fMultU;
-        float fMultV;
+        float fMultU = 0.0f;
+        float fMultV = 0.0f;
 
         ComPtr<ID3D12Resource> pTexture;
         ComPtr<ID3D11ShaderResourceView> pShaderResourceView;
+        size_t iHeapIndex = 0;
     };
 
     explicit TextureConverter(ID3D12Device& Device, ID3D12GraphicsCommandList& CommandList, ID3D12DescriptorHeap& SRVDescriptorHeap);

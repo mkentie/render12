@@ -12,7 +12,7 @@ TextureCache::TextureCache(ID3D12Device& Device, ID3D12GraphicsCommandList& Comm
     ResetDirtySlots();
 
     D3D12_DESCRIPTOR_HEAP_DESC SRVHeapDesc = {};
-    SRVHeapDesc.NumDescriptors = 8; //TODO how many?
+    SRVHeapDesc.NumDescriptors = 1024; //TODO how many?
     SRVHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
     SRVHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
     ThrowIfFail(m_Device.CreateDescriptorHeap(&SRVHeapDesc, __uuidof(m_pSRVDescriptorHeap), &m_pSRVDescriptorHeap), L"Failed to create SRV descriptor heap.");

@@ -13,6 +13,7 @@ public:
         DirectX::XMFLOAT4 TexCoord;
         DirectX::XMFLOAT3 Color;
         unsigned int PolyFlags;
+        unsigned int TextureIndex;
     };
 
     explicit TileRenderer(ID3D12Device& Device, ID3D12RootSignature& RootSignature, ID3D12GraphicsCommandList& CommandList);

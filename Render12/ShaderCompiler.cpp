@@ -36,15 +36,15 @@ ShaderCompiler::CompiledShader ShaderCompiler::CompileShader(const char* const p
 
 ShaderCompiler::CompiledShader ShaderCompiler::CompileVertexShader()
 {
-    return CompileShader("VSMain", "vs_5_0");
+    return CompileShader("VSMain", "vs_5_1");
 }
 
 ShaderCompiler::CompiledShader ShaderCompiler::CompileGeometryShader()
 {
-    return CompileShader("GSMain", "gs_5_0");
+    return CompileShader("GSMain", "gs_5_1");
 }
 
 ShaderCompiler::CompiledShader ShaderCompiler::CompilePixelShader()
 {
-    return CompileShader("PSMain", "ps_5_0");
+    return CompileShader("PSMain", "ps_5_1");
 }

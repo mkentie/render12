@@ -144,6 +144,7 @@ void UD3D12RenderDevice::Render()
 
     //m_pDeviceState->Bind();
    
+    m_pTextureCache->BindTextures();
 
     if (m_pTileRenderer->InBatch())
     {
@@ -152,7 +153,7 @@ void UD3D12RenderDevice::Render()
         m_pTileRenderer->Draw();
     }
 
-    m_pTextureCache->BindTextures();
+    
 
 
     //if (m_pGouraudRenderer->IsMapped())
@@ -349,7 +350,7 @@ void UD3D12RenderDevice::DrawTile(FSceneNode* const /*pFrame*/, FTextureInfo& In
     //}
 
     //m_pDeviceState->PrepareBlendState(BlendState);
-    m_pTextureCache->FindOrInsertAndPrepare(Info, 0);
+    const auto& TextureData = m_pTextureCache->FindOrInsertAndPrepare(Info, 0);
 
     if (!m_pTileRenderer->InBatch())
     {
@@ -373,6 +374,7 @@ void UD3D12RenderDevice::DrawTile(FSceneNode* const /*pFrame*/, FTextureInfo& In
     t.Color = reinterpret_cast<const decltype(t.Color)&>(Color);
 
     t.PolyFlags = PolyFlagsCorrected;
+    t.TextureIndex = TextureData.iHeapIndex;
 }
 
 void UD3D12RenderDevice::Draw2DLine(FSceneNode* const /*pFrame*/, const FPlane /*Color*/, const DWORD /*LineFlags*/, const FVector /*P1*/, const FVector /*P2*/)

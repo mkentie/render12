@@ -36,7 +36,7 @@ float4 PSMain(const VSOut Input) : SV_Target
 {
     if (Input.PolyFlags & PF_Masked)
     {
-        clip(TexDiffuse.Sample(SamPoint, Input.TexCoord).a - 0.5f);
+      //  clip(TexDiffuse.Sample(SamPoint, Input.TexCoord).a - 0.5f);
     }
 
     float4 Color = float4(1.0f, 1.0f, 1.0f, 1.0f);
