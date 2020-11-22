@@ -12,8 +12,8 @@ DeviceState::DeviceState(ID3D11Device& Device, ID3D11DeviceContext& DeviceContex
     CreateSamplerStates();
 }
 
-template<DeviceState::StateCreationFunc Func, class DescType, class StateType, const size_t Num>
-void DeviceState::CreateStates(const std::array<DescType, Num>& Descs, std::array<ComPtr<StateType>, Num>& States)
+template<class DescType, class StateType, const size_t Num>
+void DeviceState::CreateStates(const std::array<DescType, Num>& Descs, std::array<ComPtr<StateType>, Num>& States, DeviceState::StateCreationFunc<DescType, StateType> Func)
 {
     for (size_t i = 0; i < Num; i++)
     {
@@ -42,7 +42,7 @@ void DeviceState::CreateRasterizerStates()
     RasWireframe = RasDefault;
     RasWireframe.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
 
-    CreateStates<&ID3D11Device::CreateRasterizerState>(Descs, m_RasterizerStates);
+    CreateStates(Descs, m_RasterizerStates, &ID3D11Device::CreateRasterizerState);
 }
 
 void DeviceState::CreateDepthStencilStates()
@@ -69,7 +69,7 @@ void DeviceState::CreateDepthStencilStates()
     DepthNoWrite = DepthDefault;
     DepthNoWrite.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ZERO;
 
-    CreateStates<&ID3D11Device::CreateDepthStencilState>(Descs, m_DepthStencilStates);
+    CreateStates(Descs, m_DepthStencilStates, &ID3D11Device::CreateDepthStencilState);
 }
 
 void DeviceState::CreateBlendStates()
@@ -121,7 +121,7 @@ void DeviceState::CreateBlendStates()
     BlendInvis.RenderTarget[0].BlendEnable = FALSE;
     BlendInvis.RenderTarget[0].RenderTargetWriteMask = 0; //This is as fast as disabling the pixel shader
 
-    CreateStates<&ID3D11Device::CreateBlendState>(Descs, m_BlendStates);
+    CreateStates(Descs, m_BlendStates, &ID3D11Device::CreateBlendState);
 }
 
 void DeviceState::CreateSamplerStates()
@@ -147,7 +147,7 @@ void DeviceState::CreateSamplerStates()
     SamPoint = SamLinear;
     SamPoint.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_POINT;
 
-    CreateStates<&ID3D11Device::CreateSamplerState>(Descs, m_SamplerStates);
+    CreateStates(Descs, m_SamplerStates, &ID3D11Device::CreateSamplerState);
 }
 
 

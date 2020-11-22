@@ -99,6 +99,7 @@ void RenDevBackend::SetRes(const unsigned int iX, const unsigned int iY)
     assert(m_pSwapChain);
 
     m_pDepthStencil = nullptr;
+    m_pRenderTargets.fill(nullptr);
 
     m_SwapChainDesc.Width = iX;
     m_SwapChainDesc.Height = iY;

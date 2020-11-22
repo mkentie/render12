@@ -34,8 +34,8 @@ protected:
     template<class Desc, class StateType>
     using StateCreationFunc = HRESULT(__stdcall ID3D11Device::*)(const Desc*, StateType**);
 
-    template<StateCreationFunc Func, class DescType, class StateType, const size_t Num>
-    void CreateStates(const std::array<DescType, Num>& Descs, std::array<ComPtr<StateType>, Num>& States);
+    template<class DescType, class StateType, const size_t Num>
+    void CreateStates(const std::array<DescType, Num>& Descs, std::array<ComPtr<StateType>, Num>& States, StateCreationFunc<DescType, StateType> Func);
 
     void CreateRasterizerStates();
     void CreateDepthStencilStates();
